@@ -32,4 +32,9 @@ public class LoginSteps {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.logout();
     }
+
+    public boolean isLoggedOut() {
+        LoginPage loginPage = new LoginPage(driver);
+        return loginPage.inputPasswordIsPresented();
+    }
 }

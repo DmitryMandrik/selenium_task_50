@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage extends AbstractPage {
-    private final String BASE_URL = "https://mail.ru";
+    private final static String BASE_URL = "https://mail.ru";
 
     @FindBy(id = "mailbox:login")
     private WebElement inputLogin;
@@ -35,6 +35,10 @@ public class LoginPage extends AbstractPage {
         driver.navigate().to(BASE_URL);
     }
 
+    private void isVisible(WebElement element) {
+        new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOf(element));
+    }
+
     public void login(String username, String password) {
         inputLogin.sendKeys(username);
         inputPassword.sendKeys(password);
@@ -46,7 +50,12 @@ public class LoginPage extends AbstractPage {
     }
 
     public String getLoggedInUserName() {
-        new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(linkLoggedInUser));
+        isVisible(linkLoggedInUser);
         return linkLoggedInUser.getText();
+    }
+
+    public boolean inputPasswordIsPresented() {
+        isVisible(inputLogin);
+        return inputLogin.isDisplayed();
     }
 }

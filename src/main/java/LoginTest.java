@@ -1,11 +1,14 @@
 import by.issoft.mandrik.steps.LoginSteps;
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
 
 public class LoginTest {
     private LoginSteps steps;
-    private final String USERNAME = "seleniumtests10@mail.ru";
-    private final String PASSWORD = "060788avavav";
+    private final static String USERNAME = "seleniumtests10@mail.ru";
+    private final static String PASSWORD = "060788avavav";
 
     @BeforeClass(description = "Init browser")
     public void setUp() {
@@ -16,12 +19,13 @@ public class LoginTest {
     @Test(description = "Login to mail.ru")
     public void loginToMailRu() {
         steps.login(USERNAME, PASSWORD);
-        Assert.assertTrue(steps.isLoggedIn(USERNAME));
+        Assert.assertTrue(steps.isLoggedIn(USERNAME), "user is not logged in");
     }
 
-    @Test(description = "Login to mail.ru")
+    @Test(description = "Logout from mail.ru")
     public void logoutFromMailRu() {
         steps.logout();
+        Assert.assertTrue(steps.isLoggedOut(), "user is not logged out");
     }
 
     @AfterClass(description = "Stop Browser")
